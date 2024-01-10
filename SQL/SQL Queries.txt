@@ -1,0 +1,106 @@
+CREATE DATABASE testdatabase;
+USE testdatabase;
+
+CREATE TABLE Universities (
+    Id INT NOT NULL auto_increment PRIMARY KEY,
+    UniName VARCHAR(255),
+    City VARCHAR(255)
+);
+
+CREATE TABLE Faculties (
+    Id INT NOT NULL auto_increment PRIMARY KEY,
+    Name VARCHAR(255),
+    UniversityId INT,
+    FOREIGN KEY (UniversityId) REFERENCES Universities(Id)
+);
+
+CREATE TABLE Groups1 (
+    Id INT NOT NULL auto_increment PRIMARY KEY,
+    GroupNumber INT,
+    FacultyId INT,
+    FOREIGN KEY (FacultyId) REFERENCES Faculties(Id)
+);
+
+CREATE TABLE Students (
+    Id INT NOT NULL auto_increment PRIMARY KEY,
+    Name VARCHAR(255),
+    Surname VARCHAR(255),
+    Age INT,
+    GroupId INT,
+    FOREIGN KEY (GroupId) REFERENCES Groups1(Id)
+);
+
+INSERT INTO testdatabase.Universities (Id, UniName, City) VALUES
+(1, "КНТЕУ", "Харків"),
+(2, "ХНУПС", "Харків"),
+(3, "ЛНУ", "Львів"),
+(4, "ЛНМА", "Львів"),
+(5, "КНУКІМ", "Київ"),
+(6, "КНУ", "Київ"),
+(7, "МУБІП", "Херсон"),
+(8, "ПНПУ", "Полтава");
+
+INSERT INTO testdatabase.Faculties (Id, Name, UniversityId) VALUES
+(1, "Економіки, менеджменту та психології", 1),
+(2, "Льотний факультет", 2),
+(3, "Іноземних мов", 3),
+(4, "Фортепіано, джазу та популярної музики", 4),
+(5, "Кіно і телебачення", 5),
+(6, "Історичний факультет", 6),
+(7, "Міжнародної економіки та інформаційних технологій", 7),
+(8, "Комп’ютерних наук, математики, фізики та економіки", 8);
+
+INSERT INTO testdatabase.Groups1 (Id, GroupNumber, FacultyId) VALUES
+(1, 101, 1),
+(2, 102, 2),
+(3, 103, 3),
+(4, 201, 4),
+(5, 202, 5),
+(6, 203, 6),
+(7, 301, 7),
+(8, 302, 8),
+(9, 303, 1),
+(10, 401, 2),
+(11, 402, 3),
+(12, 403, 4),
+(13, 501, 5),
+(14, 502, 6),
+(15, 503, 7),
+(16, 104, 8);
+
+INSERT INTO testdatabase.Students (Id, Name, Surname, Age, GroupId) VALUES
+(1, "Вікторія", "Вальчук", 18, 1 ), 
+(2, "Іван", "Антонюк", 19, 4),
+(3, "Сергій", "Середа", 20, 7),
+(4, "Ілона", "Карпенко", 21, 10),
+(5, "Юлія", "Шмик", 22, 13),
+(6, "Влад", "Назаренко", 18, 2),
+(7, "Віктор", "Мосійчук", 19, 5),
+(8, "Лілія", "Рибалко", 20, 8),
+(9, "Кіра", "Липейко", 21, 11),
+(10, "Олександр", "Шовкопляс", 22, 14),
+(11, "Маргарита", "Сільчук", 18, 3),
+(12, "Максим", "Коломієць", 19, 6),
+(13, "Світлана", "Лавриненко", 20, 9),
+(14, "Андрій", "Богун", 21, 12),
+(15, "Валерія", "Сидорчук", 22, 15);
+
+SELECT * FROM testdatabase.Universities;
+SELECT * FROM testdatabase.Faculties;
+SELECT * FROM testdatabase.Groups1;
+SELECT * FROM testdatabase.Students;
+
+SELECT * FROM Universities;
+
+SELECT Name, Surname FROM Students;
+
+SELECT * FROM Students WHERE Name = "Іван";
+
+SELECT * FROM Groups1 WHERE GroupNumber > 300;
+
+SELECT * FROM Universities WHERE UniName LIKE "%У%";
+
+
+SELECT * FROM Students ORDER BY Name DESC, Surname DESC;
+
+SELECT * FROM Students JOIN Groups1 ON Students.GroupId = Groups1.Id;
